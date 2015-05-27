@@ -28,8 +28,6 @@ blink = do
   -- How much we step by
   muckInc <- int32 "muckInc" 0
 
-  buttonPushed <- bool "buttonPushed" False
-
   on <- bool "on" False
 
   period 100 $ phase 0 $ atom "displayArray" $ do
@@ -56,7 +54,7 @@ blink = do
       tmp <== true
       muckIdx <== (value muckIdx) + (value muckInc)
 
-  period 10 $ phase 0 $ atom "readPin" $ do
+  period 100 $ phase 0 $ atom "readPin" $ do
     call "check_buttons"
 
   where
@@ -98,9 +96,6 @@ prePostCode _ _ _ =
     , "Bounce upButton = Bounce(upButtonPin, 1);"
     , "Bounce downButton = Bounce(downButtonPin, 1);"
     , (varInit Int16 "ledPin" "13")
---    , "// No debounce"
---    , (varInit Int32 "current_state" "1")
---    , (varInit Int32 "prev_state" "1")
     , "void avr_blink(void);"
     , "void check_buttons(void);"
     ]
@@ -117,11 +112,6 @@ prePostCode _ _ _ =
     , "// set the LED on or off"
     , "void avr_blink() { digitalWrite(state.FibClock.pinIdx, state.FibClock.on); }"
     , "void check_buttons() {"
---    , "  current_state = digitalRead(upButtonPin);"
---    , "  if ((prev_state != current_state) && (current_state == HIGH)) {"
---    , "    state.FibClock.muckInc += 1;"
---    , "  }"
---    , "  prev_state = current_state;"
     , "  if (upButton.update() && upButton.fallingEdge()) {"
     , "    state.FibClock.muckInc += 1;"
     , "  }"
