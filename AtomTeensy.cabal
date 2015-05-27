@@ -18,13 +18,12 @@ cabal-version:       >=1.10
 executable ReferenceColorsTest
   main-is:             ReferenceColors/Test.hs
   hs-source-dirs:      src test
-  build-depends:       base >=4.6 && <4.7, QuickCheck >= 2.6
+  build-depends:       base >=4.7 && <4.9, QuickCheck >= 2.6, containers
 
---executable AtomTeensy
---  buildable:           False
---  -- main-is:             
---  -- other-modules:       
---  other-extensions:    NoMonomorphismRestriction
---  build-depends:       base >=4.6 && <4.7, atom >=1.0 && <1.1, directory >=1.2 && <1.3
---  hs-source-dirs:      src
---  default-language:    Haskell2010
+executable FibClock
+  main-is:             FibClock.hs
+  -- other-modules:       
+  other-extensions:    NoMonomorphismRestriction
+  build-depends:       base >=4.7 && <4.9, atom >=1.0 && <1.1, directory >=1.2 && <1.3
+  hs-source-dirs:      src
+  default-language:    Haskell2010
